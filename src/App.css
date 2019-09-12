@@ -1,0 +1,114 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* body {
+  height: 60vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+} */
+
+.card-container {
+  background-color: transparent;
+  width: 200px;
+  height: 200px;
+  /* border: 1px solid #f1f1f1; */
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  margin: auto;
+}
+
+/* This container is needed to position the front and back side */
+.card {
+  position: relative;
+  border: 1px solid #300;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: all 0.4s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.card-container:hover .card {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.front {
+  background-color: rgba(255, 251, 251, 1);
+  /* color: black; */
+}
+
+/* Style the back side */
+.back {
+  background-color: rgba(255, 251, 251, 1);
+  /* color: white; */
+  transform: rotateY(180deg);
+}
+
+.eng{
+  color: #333;
+  font-size: 1.3em;
+  padding-top: 40%;
+}
+
+.han{
+  color: #333;
+  font-size: 2.3em;
+  padding-top: 25%;
+}
+
+.pin{
+  color: rgba(200, 10, 10, 1);
+  font-size: 1.3em;
+  padding-top: 10%;
+}
+
+button.del {
+  background: none;
+  border: none;
+  font-size: 10pt;
+  float: right;
+  padding-right: 5%;
+  padding-top: 5%;
+}
