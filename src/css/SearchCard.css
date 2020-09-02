@@ -1,52 +1,63 @@
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card-search-container {
-    cursor: pointer;
-    height: 200px;
-    width: 200px;
-    /* perspective: 800px; */
-    position: relative;
-    margin: auto;
-    display: inline-table;
-    /* transition: ease-in; */
+  cursor: pointer;
+  height: 200px;
+  width: 200px;
+  /* perspective: 800px; */
+  position: relative;
+  margin: 2px auto;
+  display: flex;
+  /* transition: ease-in; */
 }
 
 .search-card {
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    background-color: rgba(255, 251, 251, 1);
-    border: 1px solid #300;
-    /* transform-style: preserve-3d;
-    transition: all 0.4s ease-in-out; */
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  background-color: rgba(255, 251, 251, 1);
+  border: 1px solid #300;
+  /* transform-style: preserve-3d;
+  transition: all 0.4s ease-in-out; */
 }
 
 .eng-search{
-    color: #333;
-    font-size: 1.3em;
-    padding-top: 15%;
+  color: #333;
+  font-size: 1.3em;
+  padding-top: 15%;
 }
 
 .han-search{
-    color: #333;
-    font-size: 1.3em;
-    padding-top: 10%;
+  color: #333;
+  font-size: 1.3em;
+  padding-top: 10%;
 }
 
 .pin-search{
-    color: rgba(200, 10, 10, 1);
-    font-size: 1.3em;
-    padding-top: 10%;
+  color: rgba(200, 10, 10, 1);
+  font-size: 1.3em;
+  padding-top: 10%;
 }
 
 button.del {
-    background: none;
-    border: none;
-    font-size: 10pt;
-    float: right;
-    padding-right: 5%;
-    padding-top: 5%;
+  background: none;
+  border: none;
+  font-size: 10pt;
+  float: right;
+  padding-right: 5%;
+  padding-top: 5%;
 }
 
 .search-box {
-    display: flex;
-    margin: 1em auto 0 auto;
+  display: flex;
+  margin: 1em auto 1em auto;
+  width: 800px;
+  border: 1px solid #300;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }

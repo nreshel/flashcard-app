@@ -1,60 +1,59 @@
 import React, { Component } from 'react'
-// import { DB_CONFIG } from '../db/Firebase.js';
 import '../css/AddCard.css';
 import firebase from 'firebase';
 
 export class AddCard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            eng: '',
-            pin: '',
-            han: '',
-            done: 0
-        }
-        
-        this.database = firebase.database().ref().child('cards');
-    }
+  constructor(props) {
+  super(props);
+  this.state = {
+    eng: '',
+    pin: '',
+    han: '',
+    done: 0
+  }
 
-    onChange = (e) => {
-        this.setState({[e.target.name]: e.target.value})
-    }
+  this.database = firebase.database().ref().child('cards');
+  }
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        this.database.push().set(this.state);
-        this.setState({ 
-            eng: '',
-            pin: '',
-            han: '',
-        });
-    }
+  onChange = (e) => {
+    this.setState({[e.target.name]: e.target.value})
+  }
 
-    render() {
-        return (
-            <form onSubmit={this.onSubmit} className="form">
-                <div className="form-section">
-                    <input type="text" name="eng" autocomplete="off" value={this.state.eng} onChange={this.onChange}/>
-                    <label for="eng" className="label-name">
-                        <span className="content-name">English: </span>
-                    </label>
-                </div>
-                <div className="form-section">
-                    <input type="text" name="pin" autocomplete="off" value={this.state.pin} onChange={this.onChange}/>
-                    <label for="pin" className="label-name">
-                        <span className="content-name">Pinyin: </span>
-                    </label>
-                </div>
-                <div className="form-section">
-                    <input type="text" name="han" autocomplete="off" value={this.state.han} onChange={this.onChange}/>
-                    <label for="han" className="label-name">
-                        <span className="content-name">Hanzi: </span>
-                    </label>
-                </div>
-                <input type="submit" value="submit" className="btn" />
-            </form>
-        )
-    }
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.database.push().set(this.state);
+    this.setState({ 
+        eng: '',
+        pin: '',
+        han: '',
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="card-container">
+          <div className="card">
+            <div className="front">
+              <div className="eng">{this.state.eng}</div>
+            </div>
+            <div className="back">
+              <div className="han">{this.state.han}</div>
+              <div className="pin">{this.state.pin}</div>
+            </div>
+          </div>
+        </div>
+        <div className="form-div">
+          <form onSubmit={this.onSubmit}>
+            <input type="text" name="eng" autocomplete="off" placeholder="input english..." value={this.state.eng} onChange={this.onChange}/><br/>
+            <input type="text" name="pin" autocomplete="off" placeholder="input pinyin..." value={this.state.pin} onChange={this.onChange}/><br/>
+            <input type="text" name="han" autocomplete="off" placeholder="input hanzi..." value={this.state.han} onChange={this.onChange}/><br/>
+            <input type="submit" value="submit" className="btn" />
+          </form>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default AddCard;

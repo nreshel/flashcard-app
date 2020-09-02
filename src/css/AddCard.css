@@ -1,75 +1,89 @@
-.form-section {
-    width: 50%;
-    height: 50px;
-    position: relative;
-    margin: 0 auto 0 auto;
-    overflow: hidden;
+.form-div {
+  display: block;
+  text-align: center;
 }
 
-/* Resizing input */
+.form-div form input {
+  width: 200px;
+  margin: 1em auto 1em auto;
+  border: 1px solid #300;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+/* .form-section {
+  width: 50%;
+  height: 50px;
+  position: relative;
+  margin: 0 auto 0 auto;
+  overflow: hidden;
+} */
+
+/* Resizing input
 .form-section input {
-    width: 100%;
-    height: 100%;
-    color: #595f6e;
-    padding-top: 20px;
-    border: none;
-    transition: all 0.3s ease;
-    background: rgba(0, 0, 0, 0);
-    outline: none;
+  width: 100%;
+  height: 100%;
+  color: #595f6e;
+  padding-top: 20px;
+  border: none;
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
 }
 
-/* Moving the label to the top */
 .form-section label {
-    position: absolute;
-    bottom: 0px;
-    left: 0%;
-    width: 100%;
-    height: 100%;
-    text-align: left;
-    pointer-events: none;
-    border-bottom: 1px solid black;
+  position: absolute;
+  bottom: 0px;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  pointer-events: none;
+  border-bottom: 1px solid black;
 }
 
 .form-section label::after {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    border-bottom: 1px solid #5fa8d3;
-    left: 0px;
-    bottom: -1px;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid #5fa8d3;
+  left: 0px;
+  bottom: -1px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
 }
 
 .content-name {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    transition: all 0.3s ease;
-}
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  transition: all 0.3s ease;
+} */
 
-.form-section input:not(:focus) + .label-name .content-name{
-    font-size: 14px;
-    transform: inherit;
-    color: black;
-}
+/* .form-section input:not(:focus) + .label-name .content-name{
+  font-size: 14px;
+  transform: inherit;
+  color: black;
+} */
 
-.form-section input:not(:focus){
-    padding-left: 13%;
-    transform: translateY(-4px);
-}
+/* .form-section input:not(:focus){
+  padding-left: 13%;
+  transform: translateY(-4px);
+} */
 
-.form-section input:focus{
-    transform: translateY(-5px);
-}
+/* .form-section input:focus{
+  transform: translateY(-5px);
+} */
 
-.form-section input:focus + .label-name .content-name{
-    transform: translateY(-150%);
-    font-size: 16px;
-    color: #5fa8d3;
-}
+/* .form-section input:focus + .label-name .content-name{
+  transform: translateY(-150%);
+  font-size: 16px;
+  color: #5fa8d3;
+} */
 
-.form-section input:focus + .label-name::after {
-    transform: translateX(0%);
-}
+/* .form-section input:focus + .label-name::after {
+  transform: translateX(0%);
+} */
