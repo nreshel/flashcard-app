@@ -13,3 +13,4 @@ const DB_CONFIG = {
 const app = firebase.initializeApp(DB_CONFIG);
 export const database = app.database().ref().child('cards');
 export const databaseLearned = app.database().ref().child('cards-learned');
+export const databaseDictionary = app.database().ref().child('dictionary');

@@ -45,8 +45,8 @@ export default class NavBar extends Component {
           <a href="/add-card">
             <i className="fa fa-fw fa-user" /> Add Card
           </a>
-          <a href="#contact">
-            <i className="fa fa-fw fa-envelope" /> Contact
+          <a href="/dictionary-search">
+            <i className="fa fa-fw fa-envelope" /> Dictionary Search
           </a>
         </div>
 

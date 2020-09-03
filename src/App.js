@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import AddCard from './components/AddCard';
 import SearchCard from './components/SearchCard';
+import DictionarySearch from './components/DictionarySearch'
+import ParseDictionary from './components/ParseDictionary'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar from './components/NavBar';
 import './App.css';
@@ -25,6 +27,8 @@ export class App extends Component {
             <Route exact path="/" component={FlashCards} />
             <Route exact path="/search-card" component={SearchCard} />
             <Route exact path="/add-card" component={AddCard} />
+            <Route exact path="/dictionary-search" component={DictionarySearch} />
+            <Route exact path="/dictionary-parser" component={ParseDictionary} />
           </Switch>
         </Router>
     </React.Fragment>
