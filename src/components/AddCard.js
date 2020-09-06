@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
+import { database } from '../db/Firebase'
+import { GrRotateRight } from 'react-icons/gr'
 import '../css/AddCard.css';
 import firebase from 'firebase';
+import '../css/FlashCards.css'
 
 export class AddCard extends Component {
   constructor(props) {
   super(props);
   this.state = {
-    eng: '',
-    pin: '',
-    han: '',
-    done: 0
+      eng: '',
+      pin: '',
+      han: '',
+      done: 0,
+    card_flip: ''
   }
 
   this.database = firebase.database().ref().child('cards');
@@ -21,7 +25,7 @@ export class AddCard extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.database.push().set(this.state);
+    database.push().set({eng: this.state.eng, pin: this.state.pin, han: this.state.han, done: this.state.done});
     this.setState({ 
         eng: '',
         pin: '',
@@ -30,14 +34,21 @@ export class AddCard extends Component {
   }
 
   render() {
+    const { card_flip } = this.state
     return (
-      <div>
+      <div className="add-card-container">
         <div className="card-container">
-          <div className="card">
+          <div className={`card ${card_flip ? "card-toggle" : ''}`}>
             <div className="front">
+              <div className="rotation-btn">
+                <GrRotateRight onClick={() => this.setState({ card_flip: !this.state.card_flip })} />
+              </div>
               <div className="eng">{this.state.eng}</div>
             </div>
             <div className="back">
+              <div className="rotation-btn">
+                <GrRotateRight onClick={() => this.setState({ card_flip: !this.state.card_flip })} />
+              </div>
               <div className="han">{this.state.han}</div>
               <div className="pin">{this.state.pin}</div>
             </div>

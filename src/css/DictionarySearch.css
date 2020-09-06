@@ -1,0 +1,85 @@
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+.dictionary-search-container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 500px;
+}
+
+.initial-container {
+  margin: auto;
+  font-size: 20pt;
+  position: relative;
+  top: 50px;
+}
+
+.dictionary-card-search-container {
+  height: 200px;
+  width: 200px;
+  /* perspective: 800px; */
+  position: relative;
+  margin: 2px auto;
+  display: flex;
+  top: 90px;
+  /* transition: ease-in; */
+}
+
+.dictionary-search-card {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  background-color: rgba(255, 251, 251, 1);
+  border: 1px solid #300;
+  text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+.add-card {
+  position: relative;
+  top: 15px;
+  left: 75px;
+}
+
+.eng-dictionary-search{
+  color: #333;
+  font-size: 1.3em;
+  padding-top: 10%;
+}
+
+.han-dictionary-search{
+  color: #333;
+  font-size: 1.3em;
+  padding-top: 10%;
+  cursor: pointer;
+}
+
+.pin-dictionary-search{
+  color: rgba(200, 10, 10, 1);
+  font-size: 1.3em;
+  padding-top: 10%;
+}
+
+button.del {
+  background: none;
+  border: none;
+  font-size: 10pt;
+  float: right;
+  padding-right: 5%;
+  padding-top: 5%;
+}
+
+.search-box {
+  display: flex;
+  margin: 1em auto 1em auto;
+  width: 800px;
+  border: 1px solid #300;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}

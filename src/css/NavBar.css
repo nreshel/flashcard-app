@@ -20,12 +20,42 @@
 }
 
 .sidebar a:hover {
-  color: #f1f1f1;
+  color: #9a9a9a;
 }
 
 .main {
   margin-left: 160px; /* Same as the width of the sidenav */
   padding: 0px 10px;
+}
+
+.arrow-toggle {
+  position: relative;
+  top: 22%;
+  left: 80%;
+  font-size: 18pt;
+  display: block;
+}
+
+.sidebar-on {
+  display: block;
+}
+
+.sidebar-off {
+  min-width: 0px;
+}
+
+.arrow-toggle-on:hover {
+  cursor: pointer;
+}
+
+.hamburger-nav {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 15px;
+  font-size: 18pt;
+  overflow-x: hidden;
+  padding-top: 16px;
 }
 
 @media screen and (max-height: 450px) {

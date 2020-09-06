@@ -1,27 +1,57 @@
 import React, { Component } from 'react'
 import firebase from 'firebase';
 import { ImArrowLeft2, ImArrowRight2 } from 'react-icons/im'
+import { GrRotateRight } from 'react-icons/gr'
+import { AiOutlineClose } from 'react-icons/ai'
 import '../css/Card.css';
 
   export class Card extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      card_flip: false
+    }
     this.database = firebase.database().ref().child('cards');
   }
+
+  /**
+   * When chinese word is click converts text to speech output
+   */
+  textToSpeech(word) {
+    // check browser compatibility
+    if (!window.speechSynthesis) {
+      alert('Your browser doesn\'t support text to speech.\nTry Chrome 33+ :)');
+    } else {
+      const utterance = new SpeechSynthesisUtterance();
+
+      utterance.text = word;
+      utterance.lang = "zh";
+
+      speechSynthesis.speak(utterance);
+    }
+  }
   render() {
+    const { card_flip } = this.state
     return (
       <div>
         <div style={{"display": "inline-flex", "paddingRight": "1%", "color": "red"}}>{this.props.cards.length}</div>
         <div style={{"display": "inline-flex", "paddingLeft": "1%", "color": "blue"}}>{this.props.cardsDone.length}</div>
         <div className="card-container">
-          <div className="card">
+          <div className={`card ${card_flip ? "card-toggle" : ''}`}>
             <div className="front">
-              <button className="del" onClick={this.props.removeCard.bind(this, this.props.card.id)}>X</button>
+              <div className="rotation-btn">
+                <GrRotateRight onClick={() => this.setState({ card_flip: !this.state.card_flip })} />
+              </div>
+              <button className="del" onClick={this.props.removeCard.bind(this, this.props.card)}>X</button>
               <div className="eng">{this.props.card.eng}</div>
             </div>
             <div className="back">
-              <button className="del" onClick={this.props.removeCard.bind(this, this.props.card.id)}>X</button>
-              <div className="han">{this.props.card.han}</div>
+              <div className="rotation-btn">
+                <GrRotateRight onClick={() => this.setState({ card_flip: !this.state.card_flip })} />
+              </div>
+              <button className="del" onClick={this.props.removeCard.bind(this, this.props.card)}>X</button>
+              <div className="han" onClick={() => this.textToSpeech(this.props.card.han)}>{this.props.card.han}</div>
               <div className="pin">{this.props.card.pin}</div>
             </div>
           </div>

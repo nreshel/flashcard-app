@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { AiFillHome } from 'react-icons/ai'
- 
+import { MdKeyboardArrowLeft } from 'react-icons/md'
+import { AiOutlineSearch, AiOutlinePlus, AiOutlineFileSearch } from 'react-icons/ai'
+import { GiHamburgerMenu } from 'react-icons/gi'
 import '../css/NavBar.css'
 
 export default class NavBar extends Component {
@@ -9,46 +11,37 @@ export default class NavBar extends Component {
     super();
     this.state = {
       style:"menu",
-      menuStatus:"open"
+      menuStatus:"open",
+      isOpen: false
     };
-    this.handleClick = this.handleClick.bind(this);
   };
-
-  handleClick() {
-    switch(this.state.menuStatus)
-    {
-      case "open":
-        this.setState({
-          menuStatus:"close",
-          style:"menu active"
-        });
-        break;
-      case "close":
-        this.setState({
-          menuStatus:"open",
-          style:"menu"
-        });
-        break;
-    }        
-  }
 
   render() {
     return (      
       <React.Fragment>
-        <div className="sidebar">
-          <a href="/">
-            <AiFillHome /> Home
-          </a>
-          <a href="/search-card">
-            <i className="fa fa-fw fa-wrench" /> Search Card
-          </a>
-          <a href="/add-card">
-            <i className="fa fa-fw fa-user" /> Add Card
-          </a>
-          <a href="/dictionary-search">
-            <i className="fa fa-fw fa-envelope" /> Dictionary Search
-          </a>
-        </div>
+        {this.state.isOpen ? (
+          <div className={`sidebar`} >
+            <a href="/">
+              <AiFillHome /> <span>Home</span>
+            </a>
+            <a href="/search-card">
+              <AiOutlineSearch /> <span>Search Card</span>
+            </a>
+            <a href="/add-card">
+              <AiOutlinePlus /> <span>Add Card</span>
+            </a>
+            <a href="/dictionary-search">
+              <AiOutlineFileSearch /> <span>Dictionary Search</span>
+            </a>
+            <div className="arrow-toggle" onClick={() => this.setState({isOpen: !this.state.isOpen})}>
+              <MdKeyboardArrowLeft />
+            </div>
+          </div>
+        ) : (
+          <div className="hamburger-nav" onClick={() => this.setState({isOpen: !this.state.isOpen})}>
+            <GiHamburgerMenu />
+          </div>
+        )}
 
       </React.Fragment>
     );

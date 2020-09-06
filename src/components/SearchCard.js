@@ -27,8 +27,6 @@ import '../css/SearchCard.css'
       })
       this.setState({
         cards: dbCards,
-        card: this.state.cards[0],
-        index: 0
       })
     })
     
@@ -83,20 +81,77 @@ import '../css/SearchCard.css'
     }) 
   }
 
+  removeCard = (card) => {
+    const { cards, cardsDone } = this.state
+    console.log(card);
+    if(cards.includes(card)) {
+      database.child(card.id).remove()
+      let cardIndex = cards.indexOf(card)
+      // filteredItems = items.filter(item => item !== valueToRemove)
+      let newCards = cards.filter(cardValue => cardValue !== card) //cards.splice(cardIndex, 1)
+      console.log(newCards)
+      this.setState({
+        cards: newCards,
+        cardSearch: [...newCards, ...cardsDone]
+      })
+      console.log("the original database")
+    } 
+    if(cardsDone.includes(card)) {
+      let cardLearnedIndex = cardsDone.indexOf(card)
+      let newLearnedCards = cardsDone.filter(cardValue => cardValue !== card)
+      databaseLearned.child(card.key).remove()
+      console.log(newLearnedCards)
+      this.setState({
+        cardsDone: newLearnedCards,
+        cardSearch: [...cards, ...newLearnedCards]
+      })
+
+      console.log(card.id)
+    }
+    // this.resetState();
+    // var refList = [];
+    // console.log(refList);
+    // database.child(id).remove();
+    // var newCards = this.refreshCards(refList);
+    // this.setState({
+    //   cards: newCards,
+    //   card: newCards[0],
+    //   index: 1
+    // })
+  }
+
+  /**
+   * When chinese word is click converts text to speech output
+   */
+  textToSpeech(word) {
+    // check browser compatibility
+    if (!window.speechSynthesis) {
+      alert('Your browser doesn\'t support text to speech.\nTry Chrome 33+ :)');
+    } else {
+      const utterance = new SpeechSynthesisUtterance();
+
+      utterance.text = word;
+      utterance.lang = "zh";
+
+      speechSynthesis.speak(utterance);
+    }
+  }
+
   render() {
     const { searchValue, filteredList } = this.state;
     return (
       <div className="search-div">
 
-        <input className="search-box" name="search" type="text" placeholder="search card..." autocomplete="off" value={this.state.searchValue} onChange={(e) => (this.setState({ searchValue: e.target.value }), this.filterCards(e))}/>
+        <input className="search-box" name="search" type="text" placeholder="search card in english..." autocomplete="off" value={this.state.searchValue} onChange={(e) => (this.setState({ searchValue: e.target.value }), this.filterCards(e))}/>
         <div className="search-container">
           {searchValue === '' ? this.state.cardSearch.map((card) => {
               return (
                 <div className="card-search-container">
                   <div className="search-card">
+                    <button className="del" onClick={() => this.removeCard(card)}>X</button>
                     <div className="eng-search">{card.eng}</div>
                     <div className="pin-search">{card.pin}</div>
-                    <div className="han-search">{card.han}</div>
+                    <div className="han-search" onClick={() => this.textToSpeech(card.han)}>{card.han}</div>
                   </div>
                 </div>
               )
@@ -105,9 +160,10 @@ import '../css/SearchCard.css'
                 return (
                   <div className="card-search-container">
                     <div className="search-card">
+                      <button className="del" onClick={() => this.removeCard(card)}>X</button>
                       <div className="eng-search">{card.eng}</div>
                       <div className="pin-search">{card.pin}</div>
-                      <div className="han-search">{card.han}</div>
+                      <div className="han-search" onClick={() => this.textToSpeech(card.han)}>{card.han}</div>
                     </div>
                   </div>
                 )

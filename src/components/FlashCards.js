@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Card from './Card';
 import { database, databaseLearned } from '../db/Firebase'
+import '../css/FlashCards.css'
 
 export class FlashCards extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export class FlashCards extends Component {
   componentWillMount() {
     const dbCards = this.state.cards;
     const dbCardsDone = this.state.cardsDone;
+    console.log("getting the new data")
     database.on('child_added', snap => {
       dbCards.push({
         id: snap.key,
@@ -144,12 +146,12 @@ export class FlashCards extends Component {
   /**
    * Removes the card from the cards database
    */
-  removeCard = (id) => {
-    console.log(id);
+  removeCard = (card) => {
+    console.log(card.id);
     this.resetState();
     var refList = [];
     console.log(refList);
-    database.child(id).remove();
+    database.child(card.id).remove();
     var newCards = this.refreshCards(refList);
     this.setState({
       cards: newCards,
@@ -177,31 +179,34 @@ export class FlashCards extends Component {
    * When done learning a card delete card from card database and transfer it to cards-learned database
    */
   cardLearned = (card) => {
+    const { cards } = this.state
     var day = new Date();
     console.log(day);
 
     var nextDay = new Date(day);
-    const tomorrow = nextDay.setDate(day.getDate()+(card.done+1));
-    let refList = []
-    console.log(card.done, tomorrow);
+    const tomorrow = nextDay.setDate(day.getDate()+(card.done ? card.done+1 : 0));
+    console.log(card, tomorrow);
     databaseLearned.push().set({
       id: card.id,
       eng: card.eng,
       pin: card.pin,
       han: card.han,
-      done: card.done + 1,
+      done: card.done ? card.done + 1 : 1,
       date: tomorrow
     });
     database.child(card.id).remove();
-    let newList = this.refreshCards(refList)
+    // let newList = this.refreshCards(refList)
+    let newList = cards.filter(cardValue => cardValue !== card)
     this.setState({
       cards: newList,
-      card: this.state.cards[0],
+      card: cards[0],
       index: 0
     });
   }
   forgotCard = (card) => {
+    const { cards, index } = this.state
     let refList = [];
+    console.log(card)
     database.child(card.id).set({
       id: card.id,
       eng: card.eng,
@@ -210,11 +215,18 @@ export class FlashCards extends Component {
       done: 0,
       date: 0
     })
-    let newList = this.refreshCards(refList)
+    // let newList = this.refreshCards(refList)
+    let newList = cards.filter(cardValue => {
+      if(cardValue == card) {
+        cardValue['done'] = 0
+        cardValue['date'] = 0
+      }
+      return cardValue
+    })
     this.setState({
       cards: newList,
-      card: this.state.cards[this.state.index],
-      index: this.state.index
+      card: cards[index],
+      index: index
     })
   }
   
@@ -222,7 +234,7 @@ export class FlashCards extends Component {
     return (
       <div className="App">
         <div className="container">
-          <h1>Flashcard app</h1>
+          <h1 class="title">Flashcard app</h1>
           <Card card={this.state.card} cards={this.state.cards} cardsDone={this.state.cardsDone} prevCard={this.prevCard} nextCard={this.nextCard} removeCard={this.removeCard} cardLearned={this.cardLearned} forgotCard={this.forgotCard}/>
         </div>
       </div>

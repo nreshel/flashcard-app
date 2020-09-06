@@ -22,7 +22,6 @@ export class App extends Component {
       <React.Fragment>
         <Router>
           <NavBar />
-
           <Switch>
             <Route exact path="/" component={FlashCards} />
             <Route exact path="/search-card" component={SearchCard} />

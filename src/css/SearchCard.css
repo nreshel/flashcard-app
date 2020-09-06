@@ -1,17 +1,18 @@
 .search-container {
   display: flex;
   flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 450px;
+  position: relative;
+  top: 60px;
 }
 
 .card-search-container {
-  cursor: pointer;
   height: 200px;
   width: 200px;
-  /* perspective: 800px; */
   position: relative;
   margin: 2px auto;
   display: flex;
-  /* transition: ease-in; */
 }
 
 .search-card {
@@ -20,8 +21,10 @@
   position: absolute;
   background-color: rgba(255, 251, 251, 1);
   border: 1px solid #300;
-  /* transform-style: preserve-3d;
-  transition: all 0.4s ease-in-out; */
+  text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap: break-word;
 }
 
 .eng-search{
@@ -34,6 +37,7 @@
   color: #333;
   font-size: 1.3em;
   padding-top: 10%;
+  cursor: pointer;
 }
 
 .pin-search{
@@ -60,4 +64,6 @@ button.del {
   border-top: none;
   border-left: none;
   border-right: none;
+  position: relative;
+  top: 50px;
 }
