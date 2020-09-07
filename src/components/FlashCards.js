@@ -185,7 +185,7 @@ export class FlashCards extends Component {
     console.log(day);
 
     var nextDay = new Date(day);
-    const tomorrow = nextDay.setDate(day.getDate()+(card.done ? card.done+1 : 0));
+    const tomorrow = nextDay.setDate(day.getDate()+(card.done ? card.done+1 : 1));
     console.log(card, tomorrow);
     databaseLearned.push().set({
       id: card.id,
