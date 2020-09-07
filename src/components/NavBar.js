@@ -10,8 +10,6 @@ export default class NavBar extends Component {
   constructor(){
     super();
     this.state = {
-      style:"menu",
-      menuStatus:"open",
       isOpen: false
     };
   };

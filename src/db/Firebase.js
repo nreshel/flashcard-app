@@ -11,6 +11,6 @@ const DB_CONFIG = {
 }
 
 const app = firebase.initializeApp(DB_CONFIG);
-export const database = app.database().ref().child('cards');
-export const databaseLearned = app.database().ref().child('cards-learned');
-export const databaseDictionary = app.database().ref().child('dictionary');
+export const database = app.database().ref().child('cards'); // learning database
+export const databaseLearned = app.database().ref().child('cards-learned'); // learned database
+export const databaseDictionary = app.database().ref().child('dictionary'); // database of parsed dictionary terms

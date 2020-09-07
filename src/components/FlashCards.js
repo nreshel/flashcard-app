@@ -20,8 +20,8 @@ export class FlashCards extends Component {
     const dbCards = this.state.cards;
     const dbCardsDone = this.state.cardsDone;
     console.log("getting the new data")
-    database.on('child_added', snap => {
-      dbCards.push({
+    database.once('child_added', snap => {
+      dbCards.push({ // pushes all entities from learning database to dbCards
         id: snap.key,
         eng: snap.val().eng,
         han: snap.val().han,
@@ -29,13 +29,13 @@ export class FlashCards extends Component {
         done: snap.val().done
       })
       this.setState({
-        cards: dbCards,
+        cards: dbCards, // gets all the entities in dbCards and saves it into the state
         card: this.state.cards[0],
         index: 0
       })
     })
     
-    databaseLearned.on('child_added', snap => {
+    databaseLearned.once('child_added', snap => {
       if((snap.val().date - Date.parse(new Date())) < 0) {
         databaseLearned.child(snap.key).remove(); // removes from the learned database 
         database.push().set({ // pushes card to the learning database
@@ -46,7 +46,7 @@ export class FlashCards extends Component {
           done: snap.val().done
         })
       } else {
-        dbCardsDone.push({
+        dbCardsDone.push({ // gets cards from the learned database
           key: snap.key,
           id: snap.val().id,
           eng: snap.val().eng,
@@ -111,8 +111,6 @@ export class FlashCards extends Component {
     } else {
       return cards[i-1];
     }
-    // const card = cards[Math.floor(Math.random() * cards.length)];
-    // return card;
   }
  
   /**
@@ -136,6 +134,10 @@ export class FlashCards extends Component {
       index: this.subtractIndex(this.state.index)
     })
   }
+
+  /**
+   * Resets the current state
+   */
   resetState = () => {
     this.setState({
       cards: [],
@@ -184,7 +186,7 @@ export class FlashCards extends Component {
     console.log(day);
 
     var nextDay = new Date(day);
-    const tomorrow = nextDay.setDate(day.getDate()+(card.done ? card.done+1 : 0));
+    const tomorrow = nextDay.setDate(day.getDate()+(card.done ? card.done+1 : 1));
     console.log(card, tomorrow);
     databaseLearned.push().set({
       id: card.id,
@@ -194,18 +196,20 @@ export class FlashCards extends Component {
       done: card.done ? card.done + 1 : 1,
       date: tomorrow
     });
-    database.child(card.id).remove();
-    // let newList = this.refreshCards(refList)
     let newList = cards.filter(cardValue => cardValue !== card)
+    database.child(card.id).remove();
     this.setState({
       cards: newList,
       card: cards[0],
       index: 0
     });
   }
+
+  /**
+   * Resets the amount of times you've learned a card so it will show up more frequently
+   */
   forgotCard = (card) => {
     const { cards, index } = this.state
-    let refList = [];
     console.log(card)
     database.child(card.id).set({
       id: card.id,
@@ -215,7 +219,6 @@ export class FlashCards extends Component {
       done: 0,
       date: 0
     })
-    // let newList = this.refreshCards(refList)
     let newList = cards.filter(cardValue => {
       if(cardValue == card) {
         cardValue['done'] = 0

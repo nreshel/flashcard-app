@@ -7,29 +7,30 @@ import '../css/FlashCards.css'
 
 export class AddCard extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
+    super(props);
+    this.state = {
       eng: '',
       pin: '',
       han: '',
       done: 0,
-    card_flip: ''
-  }
-
-  this.database = firebase.database().ref().child('cards');
+      card_flip: ''
+    }
   }
 
   onChange = (e) => {
     this.setState({[e.target.name]: e.target.value})
   }
 
+  /**
+   * Submits inputted text boxes and makes it into a cards and adds it to the learning database
+   */
   onSubmit = (e) => {
     e.preventDefault();
     database.push().set({eng: this.state.eng, pin: this.state.pin, han: this.state.han, done: this.state.done});
     this.setState({ 
-        eng: '',
-        pin: '',
-        han: '',
+      eng: '',
+      pin: '',
+      han: '',
     });
   }
 

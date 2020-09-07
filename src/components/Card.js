@@ -19,7 +19,6 @@ import '../css/Card.css';
    * When chinese word is click converts text to speech output
    */
   textToSpeech(word) {
-    // check browser compatibility
     if (!window.speechSynthesis) {
       alert('Your browser doesn\'t support text to speech.\nTry Chrome 33+ :)');
     } else {

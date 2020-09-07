@@ -14,6 +14,9 @@ export class ParseDictionary extends Component {
     this.parse_file = this.parse_file.bind(this)
   }
 
+  /**
+   * Takes a text input of a dictionary and parses it to a json object
+   */
   parse_file(input) {
 
     const {han, pinyin, jyutping, description} = this.state;
@@ -28,8 +31,7 @@ export class ParseDictionary extends Component {
     reader.onload = (event) => {
         const file = event.target.result;
         const allLines = file.split(/\r\n|\n/);
-        // Reading line by line
-        allLines.forEach((line) => {
+        allLines.forEach((line) => { // reads line by line
           dict_key = `${line.match(han)}`.split(",")[1]
           dict["dictionary"][dict_key] = {}
           if((line.match(han) || line.match(pinyin) || line.match(jyutping) || line.match(description)) != null) {

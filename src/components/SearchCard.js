@@ -18,7 +18,7 @@ import '../css/SearchCard.css'
     const dbCards = this.state.cards;
     const dbCardsDone = this.state.cardsDone;
     database.on('child_added', snap => {
-      dbCards.push({
+      dbCards.push({ // pushes all the cards from learning database
         id: snap.key,
         eng: snap.val().eng,
         han: snap.val().han,
@@ -26,11 +26,11 @@ import '../css/SearchCard.css'
         done: snap.val().done
       })
       this.setState({
-        cards: dbCards,
+        cards: dbCards, // save all pushed entities from learning database to state
       })
     })
     
-    databaseLearned.on('child_added', snap => {
+    databaseLearned.once('child_added', snap => {
       if((snap.val().date - Date.parse(new Date())) < 0) {
         databaseLearned.child(snap.key).remove(); // removes from the learned database 
         database.push().set({ // pushes card to the learning database
@@ -41,7 +41,7 @@ import '../css/SearchCard.css'
           done: snap.val().done
         })
       } else {
-        dbCardsDone.push({
+        dbCardsDone.push({ // gets cards from the learned database
           key: snap.key,
           id: snap.val().id,
           eng: snap.val().eng,
@@ -58,13 +58,12 @@ import '../css/SearchCard.css'
     })
   }
 
-  onChange = (e) => {
-    this.filterCards(e)
-  }
-
+  /**
+   * Filters card based on english input
+   */
   filterCards = (e) => {
-    const { searchValue } = this.state
-    var cardList = this.state.cardSearch;
+    const { searchValue, cardSearch } = this.state
+    var cardList = cardSearch;
     var filteredCards = [];
     var value = searchValue.toLowerCase();
 
@@ -80,15 +79,16 @@ import '../css/SearchCard.css'
       filteredList: filteredCards
     }) 
   }
-
+  
+  /**
+   * Removes the card from the cards database
+   */
   removeCard = (card) => {
     const { cards, cardsDone } = this.state
     console.log(card);
     if(cards.includes(card)) {
       database.child(card.id).remove()
-      let cardIndex = cards.indexOf(card)
-      // filteredItems = items.filter(item => item !== valueToRemove)
-      let newCards = cards.filter(cardValue => cardValue !== card) //cards.splice(cardIndex, 1)
+      let newCards = cards.filter(cardValue => cardValue !== card)
       console.log(newCards)
       this.setState({
         cards: newCards,
@@ -97,7 +97,6 @@ import '../css/SearchCard.css'
       console.log("the original database")
     } 
     if(cardsDone.includes(card)) {
-      let cardLearnedIndex = cardsDone.indexOf(card)
       let newLearnedCards = cardsDone.filter(cardValue => cardValue !== card)
       databaseLearned.child(card.key).remove()
       console.log(newLearnedCards)
@@ -108,23 +107,12 @@ import '../css/SearchCard.css'
 
       console.log(card.id)
     }
-    // this.resetState();
-    // var refList = [];
-    // console.log(refList);
-    // database.child(id).remove();
-    // var newCards = this.refreshCards(refList);
-    // this.setState({
-    //   cards: newCards,
-    //   card: newCards[0],
-    //   index: 1
-    // })
   }
 
   /**
    * When chinese word is click converts text to speech output
    */
   textToSpeech(word) {
-    // check browser compatibility
     if (!window.speechSynthesis) {
       alert('Your browser doesn\'t support text to speech.\nTry Chrome 33+ :)');
     } else {
