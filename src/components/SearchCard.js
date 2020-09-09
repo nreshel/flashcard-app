@@ -30,7 +30,7 @@ import '../css/SearchCard.css'
       })
     })
     
-    databaseLearned.once('child_added', snap => {
+    databaseLearned.on('child_added', snap => {
       if((snap.val().date - Date.parse(new Date())) < 0) {
         databaseLearned.child(snap.key).remove(); // removes from the learned database 
         database.push().set({ // pushes card to the learning database

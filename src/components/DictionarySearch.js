@@ -25,18 +25,25 @@ export class DictionarySearch extends Component {
     if(searchValue.match(/(\p{Script=Hani})+/gu) && keycode === 13){
       console.log('enter press here! ')
       databaseDictionary.orderByKey().startAt(value).endAt(value +"\uf8ff").once('value', (snapshot) => {
-        Object.entries(snapshot.val()).forEach(([key, value]) => {
-         fetchData.push({
-            id: key,
-            description: value.description,
-            jyut: value.jyutping,
-            pin: value.pinyin,
-            char: value.word
+        if(snapshot.exists()) {
+          Object.entries(snapshot.val()).forEach(([key, value]) => {
+           fetchData.push({
+              id: key,
+              description: value.description,
+              jyut: value.jyutping,
+              pin: value.pinyin,
+              char: value.word
+            })
           })
-        })
-        this.setState({
-          searchedList: fetchData,
-        })
+          this.setState({
+            searchedList: fetchData,
+          })
+        } else {
+          alert("This query does not match what's in the dictionary, please try again with a different query")
+          this.setState({
+            searchValue: ''
+          })
+        }
       })
     }
   }
