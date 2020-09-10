@@ -199,7 +199,7 @@ export class FlashCards extends Component {
     let newList = cards.filter(cardValue => cardValue !== card)
     this.setState({
       cards: newList,
-      card: cards[0],
+      card: newList[0],
       index: 0
     });
   }

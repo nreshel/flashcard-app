@@ -34,6 +34,22 @@ export class AddCard extends Component {
     });
   }
 
+  /**
+   * When chinese word is click converts text to speech output
+   */
+  textToSpeech(word) {
+    if (!window.speechSynthesis) {
+      alert('Your browser doesn\'t support text to speech.\nTry Chrome 33+ :)');
+    } else {
+      const utterance = new SpeechSynthesisUtterance();
+
+      utterance.text = word;
+      utterance.lang = "zh";
+
+      speechSynthesis.speak(utterance);
+    }
+  }
+
   render() {
     const { card_flip } = this.state
     return (
@@ -50,7 +66,7 @@ export class AddCard extends Component {
               <div className="rotation-btn">
                 <GrRotateRight onClick={() => this.setState({ card_flip: !this.state.card_flip })} />
               </div>
-              <div className="han">{this.state.han}</div>
+              <div className="han" onClick={() => this.textToSpeech(this.state.han)}>{this.state.han}</div>
               <div className="pin">{this.state.pin}</div>
             </div>
           </div>
