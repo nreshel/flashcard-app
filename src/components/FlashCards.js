@@ -232,11 +232,17 @@ export class FlashCards extends Component {
   }
   
   render() {
+    console.log(this.state.cards)
     return (
       <div className="App">
         <div className="container">
           <h1 class="title">Flashcard app</h1>
-          <Card card={this.state.card} cards={this.state.cards} cardsDone={this.state.cardsDone} prevCard={this.prevCard} nextCard={this.nextCard} removeCard={this.removeCard} cardLearned={this.cardLearned} forgotCard={this.forgotCard}/>
+          {typeof this.state.cards != "undefined" && this.state.cards != null && this.state.cards.length != null && this.state.cards.length > 0 ? (
+            
+            <Card card={this.state.card} cards={this.state.cards} cardsDone={this.state.cardsDone} prevCard={this.prevCard} nextCard={this.nextCard} removeCard={this.removeCard} cardLearned={this.cardLearned} forgotCard={this.forgotCard}/>
+            ) : (
+              <div className="cards-done">You are done learning all your flashcards!!!</div>
+          )}
         </div>
       </div>
     )

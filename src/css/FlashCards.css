@@ -104,3 +104,13 @@ button.del {
 .add-card-toggler-off { 
   display: none;
 }
+
+/* Styles for div cards done */
+
+.cards-done {
+  margin: 20px auto auto auto;
+  font-size: 20pt;
+  position: relative;
+  top: 50px;
+  padding: 10px 0 50px 0;
+}
