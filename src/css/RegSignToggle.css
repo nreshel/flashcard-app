@@ -1,0 +1,52 @@
+.toggle-container {
+  position: relative;
+  height: 100px;
+  width: 300px;
+  background-color: rgba(255, 251, 251, 1);
+  border: 1px solid #300;
+  text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  margin: 0 auto;
+  top: 200px;
+}
+
+.toggle-container h2 {
+  margin: 0;
+  position: relative;
+  top: -10px;
+}
+
+.register-toggle-btn {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+.register-toggle-btn:hover {
+  color: #7b7b7b;
+}
+
+.signin-toggle-btn {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.signin-toggle-btn:hover {
+  color: #7b7b7b;
+}
+
+.divider {
+  margin: 10px;
+}
+
+.toggle-container form {
+  position: relative;
+  top: 40px;
+}
+
+button.submit-button {
+  position: relative;
+  top: 8px;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import firebase from 'firebase'
 import { database, databaseDictionary } from '../db/Firebase'
 import { GoPlus } from 'react-icons/go'
 import '../css/DictionarySearch.css';
@@ -52,7 +53,8 @@ export class DictionarySearch extends Component {
    * adds cards to the flashcard deck
    */
   addCard = (card) => {
-    database.push().set(card);
+    const { userId } = this.props
+    firebase.database().ref(`/users/${userId}/cards/`).push().set(card);
     alert("card has been added")
   }
 

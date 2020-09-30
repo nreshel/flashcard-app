@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import firebase from 'firebase'
 import Card from './Card';
 import { database, databaseLearned } from '../db/Firebase'
 import '../css/FlashCards.css'
@@ -19,8 +20,9 @@ export class FlashCards extends Component {
   componentWillMount() {
     const dbCards = this.state.cards;
     const dbCardsDone = this.state.cardsDone;
+    const { userId } = this.props
     console.log("getting the new data")
-    database.on('child_added', snap => {
+    firebase.database().ref(`/users/${userId}/cards/`).on('child_added', snap => {
       dbCards.push({
         id: snap.key,
         eng: snap.val().eng,
@@ -35,10 +37,10 @@ export class FlashCards extends Component {
       })
     })
     
-    databaseLearned.on('child_added', snap => {
+    firebase.database().ref(`/users/${userId}/cards-learned/`).on('child_added', snap => {
       if((snap.val().date - Date.parse(new Date())) < 0) {
-        databaseLearned.child(snap.key).remove(); // removes from the learned database 
-        database.push().set({ // pushes card to the learning database
+        firebase.database().ref(`/users/${userId}/cards-learned/`).child(snap.key).remove(); // removes from the learned database 
+        firebase.database().ref(`/users/${userId}/cards/`).push().set({ // pushes card to the learning database
           id: snap.val().id,
           eng: snap.val().eng,
           han: snap.val().han,
@@ -148,11 +150,12 @@ export class FlashCards extends Component {
    * Removes the card from the cards database
    */
   removeCard = (card) => {
+    const { userId } = this.props
     console.log(card.id);
     this.resetState();
     var refList = [];
     console.log(refList);
-    database.child(card.id).remove();
+    firebase.database().ref(`/users/${userId}/cards/`).child(card.id).remove();
     var newCards = this.refreshCards(refList);
     this.setState({
       cards: newCards,
@@ -164,7 +167,8 @@ export class FlashCards extends Component {
    * Refreshes cards when action occurs
    */
   refreshCards = (cardList) => {
-    database.on('child_added', snap => {
+    const { userId } = this.props
+    firebase.database().ref(`/users/${userId}/cards/`).on('child_added', snap => {
       cardList.push({
         id: snap.key,
         eng: snap.val().eng,
@@ -181,13 +185,14 @@ export class FlashCards extends Component {
    */
   cardLearned = (card) => {
     const { cards } = this.state
+    const { userId } = this.props
     var day = new Date();
     console.log(day);
 
     var nextDay = new Date(day);
     const tomorrow = nextDay.setDate(day.getDate()+(card.done ? card.done+1 : 1));
     console.log(card, tomorrow);
-    databaseLearned.push().set({
+    firebase.database().ref(`/users/${userId}/cards-learned/`).push().set({
       id: card.id,
       eng: card.eng,
       pin: card.pin,
@@ -195,7 +200,7 @@ export class FlashCards extends Component {
       done: card.done ? card.done + 1 : 1,
       date: tomorrow
     });
-    database.child(card.id).remove();
+    firebase.database().ref(`/users/${userId}/cards/`).child(card.id).remove();
     let newList = cards.filter(cardValue => cardValue !== card)
     this.setState({
       cards: newList,
@@ -208,8 +213,9 @@ export class FlashCards extends Component {
    */
   forgotCard = (card) => {
     const { cards, index } = this.state
+    const { userId } = this.props
     console.log(card)
-    database.child(card.id).set({
+    firebase.database().ref(`/users/${userId}/cards/`).child(card.id).set({
       id: card.id,
       eng: card.eng,
       pin: card.pin,
@@ -218,7 +224,7 @@ export class FlashCards extends Component {
       date: 0
     })
     let newList = cards.filter(cardValue => {
-      if(cardValue == card) {
+      if(cardValue === card) {
         cardValue['done'] = 0
         cardValue['date'] = 0
       }
@@ -232,6 +238,7 @@ export class FlashCards extends Component {
   }
   
   render() {
+    console.log(this.props.userId)
     console.log(this.state.cards)
     return (
       <div className="App">

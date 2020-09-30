@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import firebase from 'firebase'
 import { database, databaseLearned } from '../db/Firebase'
 import '../css/SearchCard.css'
 
@@ -17,7 +18,8 @@ import '../css/SearchCard.css'
   componentWillMount() {
     const dbCards = this.state.cards;
     const dbCardsDone = this.state.cardsDone;
-    database.on('child_added', snap => {
+    const { userId } = this.props
+    firebase.database().ref(`/users/${userId}/cards/`).on('child_added', snap => {
       dbCards.push({ // pushes all the cards from learning database
         id: snap.key,
         eng: snap.val().eng,
@@ -30,10 +32,10 @@ import '../css/SearchCard.css'
       })
     })
     
-    databaseLearned.on('child_added', snap => {
+    firebase.database().ref(`/users/${userId}/cards-learned/`).on('child_added', snap => {
       if((snap.val().date - Date.parse(new Date())) < 0) {
-        databaseLearned.child(snap.key).remove(); // removes from the learned database 
-        database.push().set({ // pushes card to the learning database
+        firebase.database().ref(`/users/${userId}/cards-learned/`).child(snap.key).remove(); // removes from the learned database 
+        firebase.database().ref(`/users/${userId}/cards/`).push().set({ // pushes card to the learning database
           id: snap.val().id,
           eng: snap.val().eng,
           han: snap.val().han,
@@ -85,9 +87,10 @@ import '../css/SearchCard.css'
    */
   removeCard = (card) => {
     const { cards, cardsDone } = this.state
+    const { userId } = this.props
     console.log(card);
     if(cards.includes(card)) {
-      database.child(card.id).remove()
+      firebase.database().ref(`/users/${userId}/cards/`).child(card.id).remove()
       let newCards = cards.filter(cardValue => cardValue !== card)
       console.log(newCards)
       this.setState({
@@ -98,7 +101,7 @@ import '../css/SearchCard.css'
     } 
     if(cardsDone.includes(card)) {
       let newLearnedCards = cardsDone.filter(cardValue => cardValue !== card)
-      databaseLearned.child(card.key).remove()
+      firebase.database().ref(`/users/${userId}/cards-learned/`).child(card.key).remove()
       console.log(newLearnedCards)
       this.setState({
         cardsDone: newLearnedCards,

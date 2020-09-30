@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import firebase from 'firebase';
 import { ImArrowLeft2, ImArrowRight2 } from 'react-icons/im'
 import { GrRotateRight } from 'react-icons/gr'
-import { AiOutlineClose } from 'react-icons/ai'
 import '../css/Card.css';
 
   export class Card extends Component {

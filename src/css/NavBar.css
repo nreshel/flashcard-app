@@ -11,7 +11,7 @@
   border-right: 1px solid #300;
 }
 
-.sidebar a {
+.sidebar a, .sidebar .sign-out {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
@@ -19,8 +19,20 @@
   display: block;
 }
 
-.sidebar a:hover {
+.sidebar a:hover, .sidebar .sign-out:hover {
   color: #9a9a9a;
+}
+
+.sign-out {
+  position: relative;
+  top: 330px;
+  cursor: pointer;
+}
+
+.sign-out-icon {
+  font-size: 15pt;
+  position: relative;
+  top: 4px;
 }
 
 .main {
@@ -34,6 +46,7 @@
   left: 80%;
   font-size: 18pt;
   display: block;
+  cursor: pointer;
 }
 
 .sidebar-on {
@@ -46,6 +59,10 @@
 
 .arrow-toggle-on:hover {
   cursor: pointer;
+}
+
+.sign-out {
+
 }
 
 .hamburger-nav {

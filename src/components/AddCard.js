@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import firebase from 'firebase'
 import { database } from '../db/Firebase'
 import { GrRotateRight } from 'react-icons/gr'
 import '../css/AddCard.css';
-import firebase from 'firebase';
 import '../css/FlashCards.css'
 
 export class AddCard extends Component {
@@ -25,8 +25,9 @@ export class AddCard extends Component {
    * Submits inputted text boxes and makes it into a cards and adds it to the learning database
    */
   onSubmit = (e) => {
+    const { userId } = this.props
     e.preventDefault();
-    database.push().set({eng: this.state.eng, pin: this.state.pin, han: this.state.han, done: this.state.done});
+    firebase.database().ref(`/users/${userId}/cards/`).push().set({eng: this.state.eng, pin: this.state.pin, han: this.state.han, done: this.state.done});
     this.setState({ 
       eng: '',
       pin: '',
