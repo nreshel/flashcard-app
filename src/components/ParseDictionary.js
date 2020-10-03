@@ -32,14 +32,15 @@ export class ParseDictionary extends Component {
         const file = event.target.result;
         const allLines = file.split(/\r\n|\n/);
         allLines.forEach((line) => { // reads line by line
-          dict_key = `${line.match(han)}`.split(",")[1]
+          dict_key = `${line.match(han)}`.split(",")[0]
+          console.log(dict_key)
           dict["dictionary"][dict_key] = {}
           if((line.match(han) || line.match(pinyin) || line.match(jyutping) || line.match(description)) != null) {
             dict["dictionary"][dict_key] = {
               "word": line.match(han),
               "piynin": line.match(pinyin),
               "jyutping": line.match(jyutping),
-              "description": line.match(description)[1].split(";")
+              "description": line.match(description)
             }
             console.log(dict["dictionary"][dict_key])
             return counter++

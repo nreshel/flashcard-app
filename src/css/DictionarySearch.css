@@ -1,19 +1,15 @@
-::-webkit-scrollbar {
-  width: 0px;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
+.initial-container {
+  margin: auto;
+  font-size: 20pt;
 }
+
 .dictionary-search-container {
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
   height: 500px;
-}
-
-.initial-container {
-  margin: auto;
-  font-size: 20pt;
   position: relative;
-  top: 50px;
+  top: 60px;
 }
 
 .dictionary-card-search-container {
@@ -23,7 +19,6 @@
   position: relative;
   margin: 2px auto;
   display: flex;
-  top: 90px;
   /* transition: ease-in; */
 }
 

@@ -64,7 +64,7 @@ export class App extends Component {
             <Route exact path="/search-card" render={(...props) => isLoggedIn ? <SearchCard userId={this.state.userId}/> : null} />
             <Route exact path="/add-card" render={(...props) => isLoggedIn ? <AddCard userId={this.state.userId}/> : null} />
             <Route exact path="/dictionary-search" render={(...props) => isLoggedIn ? <DictionarySearch userId={this.state.userId} /> : null} />
-            <Route exact path="/dictionary-parser" component={isLoggedIn ? ParseDictionary : null} />
+            <Route exact path="/dictionary-parser" component={ParseDictionary} />
           </Switch>
         </Router>
     </React.Fragment>

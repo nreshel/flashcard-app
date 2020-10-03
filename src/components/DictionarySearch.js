@@ -78,7 +78,7 @@ export class DictionarySearch extends Component {
     const { searchValue, searchedList } = this.state
     console.log(searchValue, searchedList)
     return (
-      <div>
+      <div className="intial-container">
         <input className="search-box" name="search" type="text" placeholder="search card in chinese..." autocomplete="off" value={this.state.searchValue} onChange={(e) => this.setState({ searchValue: e.target.value, searchedList: [] })} onKeyPress={(e) => this.getFilteredDictionary(e)}/>
         <div className="dictionary-search-container">  
           {searchValue.match(/(\p{Script=Hani})+/gu) && searchedList && searchedList.length !== 0 ? (
